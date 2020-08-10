@@ -4,7 +4,6 @@ import com.example.cursomvc.domain.*;
 import com.example.cursomvc.domain.enums.EstadoPagamento;
 import com.example.cursomvc.domain.enums.TipoCliente;
 import com.example.cursomvc.repositories.*;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 @SpringBootApplication
-public class CursoMvcApplication implements CommandLineRunner {
+public class SpringBootIonicBackend implements CommandLineRunner {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
@@ -36,7 +35,7 @@ public class CursoMvcApplication implements CommandLineRunner {
 	private ItemPedidoRepository itemPedidoRepository;
 
 	public static void main(String[] args) {
-		SpringApplication.run(CursoMvcApplication.class, args);
+		SpringApplication.run(SpringBootIonicBackend.class, args);
 	}
 
 	@Override
