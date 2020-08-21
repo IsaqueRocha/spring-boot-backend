@@ -1,18 +1,18 @@
 package com.example.cursomvc.resources;
 
-import com.example.cursomvc.domain.Categoria;
 import com.example.cursomvc.domain.Cliente;
-import com.example.cursomvc.dto.CategoriaDTO;
 import com.example.cursomvc.dto.ClienteDTO;
+import com.example.cursomvc.dto.ClienteNewDTO;
 import com.example.cursomvc.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @RestController
@@ -37,6 +37,20 @@ public class ClienteResource {
     }
 
     //TODO insert method
+    @PostMapping
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto) {
+        Cliente obj = service.fromDTO(objDto);
+
+        obj = service.insert(obj);
+
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(obj.getId())
+                .toUri();
+
+        return ResponseEntity.created(uri).build();
+    }
 
     @PutMapping(value="/{id}")
     public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDto, @PathVariable Integer id) {
