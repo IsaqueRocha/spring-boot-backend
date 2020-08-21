@@ -39,6 +39,10 @@ public class ItemPedido implements Serializable {
         return id.getProduto();
     }
 
+    public double getSubTotal() {
+        return (this.preco - this.desconto) * this.quantidade;
+    }
+
     public ItemPedidoPK getId() {
         return id;
     }

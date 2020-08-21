@@ -1,7 +1,6 @@
 package com.example.cursomvc.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -42,6 +41,10 @@ public class Pedido  implements Serializable {
         this.instante = instante;
         this.cliente = cliente;
         this.enderecoDeEntrega = enderecoDeEntrega;
+    }
+
+    public double getValorTotal() {
+        return this.itens.stream().mapToDouble(ItemPedido::getSubTotal).sum();
     }
 
     public Integer getId() {
