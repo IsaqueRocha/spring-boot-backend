@@ -29,9 +29,9 @@ dependencies {
     }
 }
 
-test {
-    useJUnitPlatform()
-}
+//test {
+//    useJUnitPlatform()
+//}
 
 jar {
 
