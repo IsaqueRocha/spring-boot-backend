@@ -16,8 +16,15 @@ import java.util.Optional;
 
 @Service
 public class PedidoService {
+
     @Autowired
     private PedidoRepository repo;
+
+    @Autowired
+    private PagamentoRepository pagamentoRepository;
+
+    @Autowired
+    private ItemPedidoRepository itemPedidoRepository;
 
     @Autowired
     private BoletoService boletoService;
@@ -25,11 +32,6 @@ public class PedidoService {
     @Autowired
     private ProdutoService produtoService;
 
-    @Autowired
-    private PagamentoRepository pagamentoRepository;
-
-    @Autowired
-    private ItemPedidoRepository itemPedidoRepository;
 
     public Pedido find(Integer id) {
         Optional<Pedido> obj = repo.findById(id);
