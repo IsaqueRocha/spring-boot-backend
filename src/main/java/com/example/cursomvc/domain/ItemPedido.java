@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Objects;
 
+@SuppressWarnings(value = "unused")
 @Entity
 public class ItemPedido implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -30,17 +31,25 @@ public class ItemPedido implements Serializable {
         this.preco = preco;
     }
 
+    public double getSubTotal() {
+        return (preco - desconto) * quantidade;
+    }
+
     @JsonIgnore
     public Pedido getPedido() {
         return id.getPedido();
+    }
+
+    public void setPedido(Pedido pedido) {
+        id.setPedido(pedido);
     }
 
     public Produto getProduto() {
         return id.getProduto();
     }
 
-    public double getSubTotal() {
-        return (this.preco - this.desconto) * this.quantidade;
+    public void setProduto(Produto produto) {
+        id.setProduto(produto);
     }
 
     public ItemPedidoPK getId() {
