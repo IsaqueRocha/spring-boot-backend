@@ -1,18 +1,13 @@
 package com.example.cursomvc;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootIonicBackend implements CommandLineRunner {
+public class SpringBootIonicBackend {
 
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBootIonicBackend.class, args);
-    }
-
-    @Override
-    public void run(String... args) throws Exception {
     }
 }
