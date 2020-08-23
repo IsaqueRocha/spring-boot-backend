@@ -10,6 +10,7 @@ import com.example.cursomvc.repositories.PedidoRepository;
 import com.example.cursomvc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Optional;
@@ -30,6 +31,9 @@ public class PedidoService {
     private BoletoService boletoService;
 
     @Autowired
+    private ClienteService clienteService;
+
+    @Autowired
     private ProdutoService produtoService;
 
 
@@ -41,9 +45,11 @@ public class PedidoService {
         );
     }
 
+    @Transactional
     public Pedido insert(Pedido obj) {
         obj.setId(null);
         obj.setInstante(new Date());
+        obj.setCliente(clienteService.find(obj.getCliente().getId()));
         obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
         obj.getPagamento().setPedido(obj);
 
@@ -57,11 +63,16 @@ public class PedidoService {
 
         for (ItemPedido itemPedido : obj.getItens()) {
             itemPedido.setDesconto(0.0);
-            itemPedido.setPreco(produtoService.find(itemPedido.getProduto().getId()).getPreco());
+            itemPedido.setProduto(produtoService.find(itemPedido.getProduto().getId()));
+            itemPedido.setPreco(itemPedido.getProduto().getPreco());
             itemPedido.setPedido(obj);
         }
 
         itemPedidoRepository.saveAll(obj.getItens());
+
+        System.out.println("======================================================================");
+        System.out.println(obj);
+        System.out.println("======================================================================");
 
         return obj;
     }
