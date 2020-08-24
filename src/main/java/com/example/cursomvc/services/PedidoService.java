@@ -36,6 +36,9 @@ public class PedidoService {
     @Autowired
     private ProdutoService produtoService;
 
+    @Autowired
+    private EmailService emailService;
+
 
     public Pedido find(Integer id) {
         Optional<Pedido> obj = repo.findById(id);
@@ -69,11 +72,7 @@ public class PedidoService {
         }
 
         itemPedidoRepository.saveAll(obj.getItens());
-
-        System.out.println("======================================================================");
-        System.out.println(obj);
-        System.out.println("======================================================================");
-
+        emailService.sendOrderConfirmationEmail(obj);
         return obj;
     }
 }
