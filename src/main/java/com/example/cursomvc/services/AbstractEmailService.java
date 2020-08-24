@@ -14,7 +14,7 @@ public class AbstractEmailService implements EmailService {
 
     @Override
     public void sendOrderConfirmationEmail(Pedido obj) {
-        SimpleMailMessage smm = prepareSimpleMailMessaFromPedido( obj);
+        SimpleMailMessage smm = prepareSimpleMailMessaFromPedido(obj);
         sendEmail(smm);
     }
 

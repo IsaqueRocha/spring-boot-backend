@@ -1,6 +1,8 @@
 package com.example.cursomvc.config;
 
 import com.example.cursomvc.services.DBService;
+import com.example.cursomvc.services.EmailService;
+import com.example.cursomvc.services.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -27,5 +29,10 @@ class DevConfig {
 
         dbService.instantiateTestDataBase();
         return true;
+    }
+
+    @Bean
+    public EmailService emailService() {
+        return new SmtpEmailService();
     }
 }
