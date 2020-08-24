@@ -5,6 +5,7 @@ import com.example.cursomvc.domain.enums.EstadoPagamento;
 import com.example.cursomvc.domain.enums.TipoCliente;
 import com.example.cursomvc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -32,6 +33,9 @@ public class DBService {
     private PagamentoRepository pagamentoRepository;
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCrypt;
 
     public void instantiateTestDataBase() throws ParseException {
         Categoria cat1 = new Categoria(null, "Informática");
@@ -100,7 +104,7 @@ public class DBService {
 
 //		--------------------------------------------------------------
 
-        Cliente cli1 = new Cliente(null, "Maria Silva", "isaquerocha@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+        Cliente cli1 = new Cliente(null, "Maria Silva", "isaquerocha@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, bCrypt.encode("123456"));
 
         cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 
