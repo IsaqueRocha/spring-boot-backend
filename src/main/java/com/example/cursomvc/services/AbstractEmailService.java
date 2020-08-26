@@ -1,5 +1,6 @@
 package com.example.cursomvc.services;
 
+import com.example.cursomvc.domain.Cliente;
 import com.example.cursomvc.domain.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -79,4 +80,19 @@ public class AbstractEmailService implements EmailService {
         return templateEngine.process("email/confirmacaoPedido", context);
     }
 
+    @Override
+    public void sendNewPasswordEmail(Cliente cliente, String newPass) {
+        SimpleMailMessage smm = prepareNewPasswordEmail(cliente, newPass);
+        sendEmail(smm);
+    }
+
+    protected SimpleMailMessage prepareNewPasswordEmail(Cliente cliente, String newPass) {
+        SimpleMailMessage sm = new SimpleMailMessage();
+        sm.setTo(cliente.getEmail());
+        sm.setFrom(sender);
+        sm.setSubject("Solicitação de nova senha");
+        sm.setSentDate(new Date(System.currentTimeMillis()));
+        sm.setText("Nova senha: " + newPass);
+        return sm;
+    }
 }
